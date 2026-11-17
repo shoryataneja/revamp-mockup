@@ -1,0 +1,38 @@
+# robots.txt for populardigital.ai
+
+# Default: all crawlers may access everything
+User-agent: *
+Allow: /
+
+# OpenAI (ChatGPT)
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+# Anthropic (Claude)
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+# Google Gemini / AI features
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://populardigital.ai/sitemap.xml
