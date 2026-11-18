@@ -86,7 +86,7 @@ export default function GalleryItem({ item, index, onOpen, buttonRef, placeholde
       className="group relative mb-4 break-inside-avoid overflow-hidden rounded-2xl"
       style={{ border: '1px solid #D8D0C4' }}
     >
-      {onOpen ? (
+      {onOpen && !placeholder ? (
         <button
           ref={buttonRef}
           type="button"
