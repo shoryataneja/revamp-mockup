@@ -3,17 +3,15 @@ import { FiInstagram, FiLinkedin } from 'react-icons/fi'
 import { MapPin, Mail, Phone, ArrowUpRight } from 'lucide-react'
 import { siteConfig } from '@data/siteConfig'
 import { products } from '@data/products'
-import Divider from '@ui/Divider'
-import { useTheme } from '@hooks/useTheme'
-import { LOGO_ON_DARK, LOGO_ON_LIGHT } from '@lib/brandAssets'
+import { LOGO_ON_DARK } from '@lib/brandAssets'
 
 const EASE = [0.16, 1, 0.3, 1]
 
 const quickLinks = [
-  { label: 'Home',         href: '#hero'      },
-  { label: 'Products',     href: '#products'  },
-  { label: 'Careers',      href: '#careers'   },
-  { label: 'Contact',      href: '#contact'   },
+  { label: 'Home',     href: '#hero'     },
+  { label: 'Products', href: '#products' },
+  { label: 'Careers',  href: '#careers'  },
+  { label: 'Contact',  href: '#contact'  },
 ]
 
 const socialLinks = [
@@ -22,37 +20,19 @@ const socialLinks = [
 ]
 
 const contactDetails = [
-  {
-    icon: MapPin,
-    lines: [siteConfig.address.line1, siteConfig.address.line2, siteConfig.address.line3],
-    href: siteConfig.address.mapsUrl,
-  },
-  {
-    icon: Mail,
-    lines: [siteConfig.email],
-    href: `mailto:${siteConfig.email}`,
-  },
-  {
-    icon: Phone,
-    lines: [siteConfig.phone],
-    href: `tel:${siteConfig.phone.replace(/\s/g, '')}`,
-    muted: false,
-  },
+  { icon: MapPin, lines: [siteConfig.address.line1, siteConfig.address.line2, siteConfig.address.line3], href: siteConfig.address.mapsUrl },
+  { icon: Mail,   lines: [siteConfig.email],  href: `mailto:${siteConfig.email}` },
+  { icon: Phone,  lines: [siteConfig.phone],  href: `tel:${siteConfig.phone.replace(/\s/g, '')}` },
 ]
 
-/* ── Column heading ─────────────────────────────────────────────── */
 function ColHeading({ children }) {
   return (
-    <h4
-      className="mb-5 text-xs font-semibold uppercase tracking-widest"
-      style={{ color: 'var(--color-primary-accent)' }}
-    >
+    <h4 style={{ fontFamily: 'var(--font-body)', fontSize: '0.65rem', fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#8A7D6E', marginBottom: 20 }}>
       {children}
     </h4>
   )
 }
 
-/* ── Animated link ──────────────────────────────────────────────── */
 function FooterLink({ href, children, external = false }) {
   return (
     <a
@@ -60,22 +40,16 @@ function FooterLink({ href, children, external = false }) {
       target={external ? '_blank' : undefined}
       rel={external ? 'noopener noreferrer' : undefined}
       className="group inline-flex items-center gap-1 text-sm transition-all duration-200"
-      style={{ color: 'var(--color-subtle)' }}
-      onMouseEnter={e => (e.currentTarget.style.color = 'var(--color-text)')}
-      onMouseLeave={e => (e.currentTarget.style.color = 'var(--color-subtle)')}
+      style={{ color: '#8A7D6E', fontFamily: 'var(--font-body)' }}
+      onMouseEnter={e => { e.currentTarget.style.color = '#E1DCC9' }}
+      onMouseLeave={e => { e.currentTarget.style.color = '#8A7D6E' }}
     >
       {children}
-      {external && (
-        <ArrowUpRight
-          size={11}
-          className="opacity-0 -translate-y-0.5 translate-x-0.5 transition-all duration-200 group-hover:opacity-100"
-        />
-      )}
+      {external && <ArrowUpRight size={11} className="opacity-0 transition-all duration-200 group-hover:opacity-100" />}
     </a>
   )
 }
 
-/* ── Social icon button ─────────────────────────────────────────── */
 function SocialBtn({ icon: Icon, href, label }) {
   return (
     <a
@@ -83,23 +57,17 @@ function SocialBtn({ icon: Icon, href, label }) {
       target="_blank"
       rel="noopener noreferrer"
       aria-label={label}
-      className="flex h-9 w-9 items-center justify-center rounded-xl transition-all duration-250"
-      style={{
-        background: 'rgba(128,128,128,0.06)',
-        border: '1px solid var(--color-card-border)',
-        color: 'var(--color-subtle)',
-      }}
+      className="flex h-9 w-9 items-center justify-center rounded-xl transition-all duration-200"
+      style={{ background: 'rgba(225,220,201,0.06)', border: '1px solid rgba(225,220,201,0.12)', color: '#8A7D6E' }}
       onMouseEnter={e => {
-        e.currentTarget.style.background = 'rgba(26,109,232,0.12)'
-        e.currentTarget.style.borderColor = 'rgba(74,144,240,0.35)'
-        e.currentTarget.style.color = 'var(--color-primary-accent)'
-        e.currentTarget.style.boxShadow = '0 0 16px rgba(26,109,232,0.2)'
+        e.currentTarget.style.background = 'rgba(225,220,201,0.12)'
+        e.currentTarget.style.borderColor = 'rgba(225,220,201,0.3)'
+        e.currentTarget.style.color = '#E1DCC9'
       }}
       onMouseLeave={e => {
-        e.currentTarget.style.background = 'rgba(128,128,128,0.06)'
-        e.currentTarget.style.borderColor = 'var(--color-card-border)'
-        e.currentTarget.style.color = 'var(--color-subtle)'
-        e.currentTarget.style.boxShadow = 'none'
+        e.currentTarget.style.background = 'rgba(225,220,201,0.06)'
+        e.currentTarget.style.borderColor = 'rgba(225,220,201,0.12)'
+        e.currentTarget.style.color = '#8A7D6E'
       }}
     >
       <Icon size={15} />
@@ -107,180 +75,99 @@ function SocialBtn({ icon: Icon, href, label }) {
   )
 }
 
-/* ── Main footer ────────────────────────────────────────────────── */
 export default function Footer() {
-  const { theme } = useTheme()
-  const isLight = theme === 'light'
   return (
-    <footer className="relative w-full overflow-hidden">
-      {/* Subtle ambient orb */}
-      <div
-        className="glow-orb glow-orb-brand pointer-events-none"
-        style={{ width: 500, height: 300, bottom: 0, left: '30%', opacity: 0.08, filter: 'blur(60px)' }}
-      />
+    <footer className="relative w-full overflow-hidden" style={{ background: '#1F150C' }}>
 
-      <Divider />
+      {/* Top border */}
+      <div style={{ height: 1, background: 'linear-gradient(90deg, transparent, rgba(225,220,201,0.15) 30%, rgba(225,220,201,0.15) 70%, transparent)' }} />
 
-      {/* Glass panel */}
-      <div
-        className="relative"
-        style={{
-          background: isLight ? '#F8FAFC' : 'rgba(14,14,20,0.85)',
-          backdropFilter: isLight ? 'none' : 'blur(24px) saturate(160%)',
-          WebkitBackdropFilter: isLight ? 'none' : 'blur(24px) saturate(160%)',
-        }}
-      >
-        {/* ── Main grid ── */}
-        <div className="container-site pt-14 pb-10">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-60px' }}
-            transition={{ duration: 0.7, ease: EASE }}
-            className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1.5fr_1.5fr]"
-          >
-
-            {/* ── Col 1: Brand ── */}
-            <div className="flex flex-col gap-5">
-              {/* Logo mark + name */}
-              <a href="#hero" className="inline-flex items-center self-start">
-                <img
-                  src={theme === 'dark' ? LOGO_ON_DARK : LOGO_ON_LIGHT}
-                  alt="Popular Digital AI"
-                  className="h-10 w-auto"
-                  loading="lazy"
-                  decoding="async"
-                  style={{ filter: 'drop-shadow(0 0 12px rgba(74, 144, 240, 0.3))' }}
-                  onError={e => {
-                    e.currentTarget.style.display = 'none'
-                    e.currentTarget.parentElement
-                      .querySelector('[data-logo-fallback]')
-                      ?.style.setProperty('display', 'flex')
-                  }}
-                />
-                <span
-                  data-logo-fallback
-                  className="hidden h-10 w-10 items-center justify-center rounded-lg text-xs font-bold"
-                  style={{
-                    background: 'linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-accent) 100%)',
-                    color: 'var(--color-on-primary)',
-                    fontFamily: 'var(--font-heading)',
-                    letterSpacing: '-0.02em',
-                  }}
-                >
-                  PD
-                </span>
-              </a>
-
-              {/* Tagline */}
-              <p className="text-sm leading-relaxed max-w-[260px]" style={{ color: 'var(--color-subtle)' }}>
-                {siteConfig.description}
-              </p>
-
-              {/* Social icons */}
-              <div className="flex items-center gap-2 pt-1">
-                {socialLinks.map(s => (
-                  <SocialBtn key={s.label} {...s} />
-                ))}
-              </div>
-            </div>
-
-            {/* ── Col 2: Quick Links ── */}
-            <div>
-              <ColHeading>Quick Links</ColHeading>
-              <ul className="flex flex-col gap-3">
-                {quickLinks.map(({ label, href }) => (
-                  <li key={href}>
-                    <FooterLink href={href}>{label}</FooterLink>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* ── Col 3: Products ── */}
-            <div>
-              <ColHeading>Products</ColHeading>
-              <ul className="flex flex-col gap-3">
-                {products.map(({ id, name, href }) => (
-                  <li key={id}>
-                    <FooterLink href={href}>{name}</FooterLink>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* ── Col 4: Contact ── */}
-            <div>
-              <ColHeading>Contact</ColHeading>
-              <ul className="flex flex-col gap-4">
-                {contactDetails.map(({ icon: Icon, lines, href, muted }) => {
-                  const inner = (
-                    <div className="flex items-start gap-3">
-                      <span
-                        className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-md"
-                        style={{
-                          background: 'rgba(26,109,232,0.1)',
-                          border: '1px solid rgba(74,144,240,0.18)',
-                        }}
-                      >
-                        <Icon size={12} style={{ color: 'var(--color-primary-accent)' }} strokeWidth={2} />
-                      </span>
-                      <div className="flex flex-col gap-0.5">
-                        {lines.map((line, i) => (
-                          <span
-                            key={i}
-                            className="text-sm leading-snug"
-                            style={{
-                              color: muted
-                                ? 'var(--color-subtle)'
-                                : i === 0
-                                  ? 'var(--color-muted)'
-                                  : 'var(--color-subtle)',
-                              fontStyle: muted ? 'italic' : 'normal',
-                            }}
-                          >
-                            {line}
-                          </span>
-                        ))}
-                        {muted && (
-                          <span className="text-xs" style={{ color: 'rgba(71,85,105,0.7)' }}>
-                            (to be updated)
-                          </span>
-                        )}
-                      </div>
-                    </div>
-                  )
-
-                  return (
-                    <li key={lines[0]}>
-                      {href ? (
-                        <a
-                          href={href}
-                          className="block transition-opacity duration-200 hover:opacity-80"
-                          {...(href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                        >
-                          {inner}
-                        </a>
-                      ) : (
-                        inner
-                      )}
-                    </li>
-                  )
-                })}
-              </ul>
-            </div>
-          </motion.div>
-        </div>
-
-        {/* ── Bottom bar ── */}
-        <div className="container-site pb-8">
-          <Divider className="mb-6" />
-          <div className="flex flex-col items-center justify-between gap-3 sm:flex-row">
-            <p className="text-xs" style={{ color: 'var(--color-subtle)' }}>
-              © {new Date().getFullYear()} Popular Digital AI Ltd. All rights reserved.
+      <div className="container-site pt-14 pb-10">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.7, ease: EASE }}
+          className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1.5fr_1.5fr]"
+        >
+          {/* Col 1: Brand */}
+          <div className="flex flex-col gap-5">
+            <a href="#hero" className="inline-flex items-center self-start">
+              <img
+                src={LOGO_ON_DARK}
+                alt="Popular Digital AI"
+                className="h-10 w-auto"
+                loading="lazy"
+                decoding="async"
+                onError={e => { e.currentTarget.style.display = 'none' }}
+              />
+            </a>
+            <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.875rem', color: '#8A7D6E', lineHeight: 1.7, maxWidth: 260 }}>
+              {siteConfig.description}
             </p>
+            <div className="flex items-center gap-2 pt-1">
+              {socialLinks.map(s => <SocialBtn key={s.label} {...s} />)}
+            </div>
           </div>
-        </div>
+
+          {/* Col 2: Quick Links */}
+          <div>
+            <ColHeading>Quick Links</ColHeading>
+            <ul className="flex flex-col gap-3">
+              {quickLinks.map(({ label, href }) => (
+                <li key={href}><FooterLink href={href}>{label}</FooterLink></li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Col 3: Products */}
+          <div>
+            <ColHeading>Products</ColHeading>
+            <ul className="flex flex-col gap-3">
+              {products.map(({ id, name, href }) => (
+                <li key={id}><FooterLink href={href}>{name}</FooterLink></li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Col 4: Contact */}
+          <div>
+            <ColHeading>Contact</ColHeading>
+            <ul className="flex flex-col gap-4">
+              {contactDetails.map(({ icon: Icon, lines, href }) => (
+                <li key={lines[0]}>
+                  <a
+                    href={href}
+                    className="flex items-start gap-3 transition-opacity duration-200 hover:opacity-80"
+                    {...(href?.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                  >
+                    <span
+                      className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-md"
+                      style={{ background: 'rgba(225,220,201,0.08)', border: '1px solid rgba(225,220,201,0.12)' }}
+                    >
+                      <Icon size={12} style={{ color: '#8A7D6E' }} strokeWidth={2} />
+                    </span>
+                    <div className="flex flex-col gap-0.5">
+                      {lines.map((line, i) => (
+                        <span key={i} style={{ fontFamily: 'var(--font-body)', fontSize: '0.8125rem', color: i === 0 ? '#C4BDA8' : '#8A7D6E', lineHeight: 1.5 }}>
+                          {line}
+                        </span>
+                      ))}
+                    </div>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Bottom bar */}
+      <div className="container-site pb-8">
+        <div style={{ height: 1, background: 'rgba(225,220,201,0.08)', marginBottom: 24 }} />
+        <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.75rem', color: 'rgba(225,220,201,0.25)' }}>
+          © {new Date().getFullYear()} Popular Digital AI Ltd. All rights reserved.
+        </p>
       </div>
     </footer>
   )

@@ -2,7 +2,6 @@ import { useState, useId, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Send, CheckCircle, AlertCircle, Loader2, ChevronDown } from 'lucide-react'
 import { formFields, validationRules, countryCodes } from '@data/contact'
-import { useTheme } from '@hooks/useTheme'
 import { getCaptchaToken } from '@utils/recaptcha'
 
 const EASE = [0.16, 1, 0.3, 1]
@@ -29,13 +28,10 @@ function Field({ field, value, error, touched, onChange, onBlur, countryCode, on
   const inputId = `${uid}-${field.id}`
   const hasError = touched && error
   const isValid  = touched && !error && value.trim().length > 0
-  const { theme } = useTheme()
-  const isLight = theme === 'light'
-
   const baseStyle = {
-    background: isLight ? '#FFFFFF' : 'rgba(255,255,255,0.04)',
-    border: `1px solid ${hasError ? 'rgba(248,113,113,0.6)' : isValid ? 'rgba(52,211,153,0.4)' : 'var(--color-border-bright)'}`,
-    color: 'var(--color-text)',
+    background: '#FFFFFF',
+    border: `1px solid ${hasError ? 'rgba(248,113,113,0.6)' : isValid ? 'rgba(52,211,153,0.4)' : '#D8D0C4'}`,
+    color: '#1A1A1A',
     fontFamily: 'var(--font-body)',
     fontSize: '0.875rem',
     outline: 'none',
@@ -46,10 +42,10 @@ function Field({ field, value, error, touched, onChange, onBlur, countryCode, on
   }
 
   const focusStyle = {
-    borderColor: hasError ? 'rgba(248,113,113,0.8)' : 'rgba(26,109,232,0.7)',
+    borderColor: hasError ? 'rgba(248,113,113,0.8)' : '#3D2B1F',
     boxShadow: hasError
       ? '0 0 0 3px rgba(248,113,113,0.1)'
-      : '0 0 0 3px rgba(26,109,232,0.12)',
+      : '0 0 0 3px rgba(61,43,31,0.1)',
   }
 
   const sharedProps = {
@@ -71,11 +67,11 @@ function Field({ field, value, error, touched, onChange, onBlur, countryCode, on
       <label
         htmlFor={inputId}
         className="text-xs font-medium"
-        style={{ color: 'var(--color-muted)' }}
+        style={{ color: '#6B5A45' }}
       >
         {field.label}
         {field.required && (
-          <span className="ml-0.5" style={{ color: 'rgba(74,144,240,0.8)' }}>*</span>
+          <span className="ml-0.5" style={{ color: '#3D2B1F' }}>*</span>
         )}
       </label>
 
@@ -103,7 +99,7 @@ function Field({ field, value, error, touched, onChange, onBlur, countryCode, on
               <ChevronDown
                 size={13}
                 className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2"
-                style={{ color: 'var(--color-muted)' }}
+                style={{ color: '#6B5A45' }}
               />
             </div>
 
@@ -176,11 +172,11 @@ function SuccessState() {
       <div className="flex flex-col gap-2">
         <h3
           className="text-xl font-semibold"
-          style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-text)' }}
+          style={{ fontFamily: 'var(--font-heading)', color: '#1A1A1A' }}
         >
           Message Sent!
         </h3>
-        <p className="text-sm max-w-xs" style={{ color: 'var(--color-muted)' }}>
+        <p className="text-sm max-w-xs" style={{ color: '#6B5A45' }}>
           Thank you for reaching out. We'll get back to you within one business day.
         </p>
       </div>
@@ -407,10 +403,8 @@ export default function ContactForm() {
         transition={{ duration: 0.2 }}
         className="relative mt-2 flex w-full items-center justify-center gap-2.5 overflow-hidden rounded-xl py-3.5 text-sm font-semibold text-white"
         style={{
-          background: loading
-            ? 'rgba(26,109,232,0.5)'
-            : 'linear-gradient(135deg, #1A6DE8 0%, #4A90F0 100%)',
-          boxShadow: loading ? 'none' : '0 0 32px rgba(26,109,232,0.4), 0 4px 16px rgba(0,0,0,0.3)',
+          background: loading ? 'rgba(26,26,26,0.5)' : '#1A1A1A',
+          boxShadow: loading ? 'none' : '0 4px 16px rgba(0,0,0,0.15)',
           cursor: loading ? 'not-allowed' : 'pointer',
           border: 'none',
           fontFamily: 'var(--font-body)',
@@ -457,7 +451,7 @@ export default function ContactForm() {
         </AnimatePresence>
       </motion.button>
 
-      <p className="text-center text-xs" style={{ color: 'var(--color-subtle)' }}>
+      <p className="text-center text-xs" style={{ color: '#8A7D6E' }}>
         We respect your privacy. Submissions are logged to a private Google Sheet for
         follow-up only — your information is never shared.
       </p>

@@ -50,7 +50,7 @@ export default function GalleryItem({ item, index, onOpen, buttonRef }) {
       viewport={{ once: true, margin: '-40px' }}
       transition={{ duration: 0.65, ease: EASE, delay: (index % 3) * 0.1 }}
       className="group relative mb-4 break-inside-avoid overflow-hidden rounded-2xl"
-      style={{ border: '1px solid rgba(45,45,66,0.6)' }}
+      style={{ border: '1px solid #D8D0C4' }}
     >
       {onOpen ? (
         <button
