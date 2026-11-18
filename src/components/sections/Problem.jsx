@@ -5,12 +5,7 @@ import { fadeUp, staggerContainer, viewport } from '@utils/animations'
 
 export default function Problem() {
   return (
-    <SectionWrapper id="problem" wrapperClassName="overflow-hidden">
-      <div
-        className="glow-orb glow-orb-brand pointer-events-none"
-        style={{ width: 500, height: 500, top: '0%', left: '50%', transform: 'translateX(-50%)', opacity: 0.14 }}
-      />
-
+    <SectionWrapper id="problem" wrapperClassName="overflow-hidden" style={{ background: '#F5F0E8' }}>
       <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
         {/* Left: text */}
         <motion.div
@@ -22,16 +17,14 @@ export default function Problem() {
         >
           <motion.h2
             variants={fadeUp}
-            className="text-heading"
-            style={{ fontSize: 'var(--text-h2)' }}
+            style={{ fontFamily: 'var(--font-heading)', fontSize: 'var(--text-h2)', fontWeight: 600, color: '#1A1A1A', letterSpacing: '-0.02em', lineHeight: 1.15 }}
           >
             Your CRM knows a lead arrived. Why is your team still the one that has to act?
           </motion.h2>
 
           <motion.p
             variants={fadeUp}
-            className="text-body"
-            style={{ fontSize: '1.0625rem' }}
+            style={{ fontFamily: 'var(--font-body)', fontSize: '1.0625rem', color: '#6B5A45', lineHeight: 1.75 }}
           >
             Every new lead creates another manual chain: noticing, calling, chasing, and updating.
             Prizm360.ai automates the repeatable layer so your next action doesn&apos;t depend on manual memory.

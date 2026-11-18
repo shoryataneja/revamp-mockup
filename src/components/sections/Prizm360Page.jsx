@@ -8,12 +8,8 @@ import UseCases from './UseCases'
 import Demo from './Demo'
 import Roadmap from './Roadmap'
 import Contact from './Contact'
-import { useTheme } from '@hooks/useTheme'
 
 export default function Prizm360Page() {
-  const { theme } = useTheme()
-  const isLight = theme === 'light'
-
   useEffect(() => { window.scrollTo({ top: 0, behavior: 'instant' }) }, [])
 
   return (
@@ -23,27 +19,27 @@ export default function Prizm360Page() {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
       className="flex min-h-screen flex-col"
-      style={{ background: 'var(--color-bg-primary)' }}
+      style={{ background: '#F5F0E8' }}
     >
       {/* Back bar */}
       <div
         className="sticky top-0 z-50 flex items-center px-6 py-4"
         style={{
-          background: isLight ? 'rgba(255,255,255,0.92)' : 'rgba(11,11,15,0.92)',
+          background: 'rgba(245,240,232,0.92)',
           backdropFilter: 'blur(12px)',
-          borderBottom: `1px solid ${isLight ? '#E2E8F0' : 'rgba(45,45,66,0.5)'}`,
+          borderBottom: '1px solid #D8D0C4',
         }}
       >
         <a
           href="#hero"
           className="inline-flex items-center gap-2 text-sm font-medium transition-colors duration-150"
-          style={{ color: 'var(--color-primary-accent)' }}
+          style={{ color: '#3D2B1F', fontFamily: 'var(--font-body)' }}
         >
           <ArrowLeft size={16} /> Back to Home
         </a>
         <span
           className="ml-auto text-sm font-semibold"
-          style={{ color: 'var(--color-text)', fontFamily: 'var(--font-heading)' }}
+          style={{ color: '#1A1A1A', fontFamily: 'var(--font-heading)' }}
         >
           Prizm360.ai
         </span>

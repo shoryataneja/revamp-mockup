@@ -1,25 +1,36 @@
 import { motion } from 'framer-motion'
 import SectionWrapper from '@ui/SectionWrapper'
-import SectionHeading from '@ui/SectionHeading'
 import { workflowHeading, workflowSteps } from '@data/workflow'
 import { fadeUp, staggerContainer, viewport } from '@utils/animations'
-import { useTheme } from '@hooks/useTheme'
 
 export default function Workflow() {
-  const { theme } = useTheme()
-  const isLight = theme === 'light'
   return (
-    <SectionWrapper id="work" wrapperClassName="overflow-hidden">
-      <div
-        className="glow-orb glow-orb-brand pointer-events-none"
-        style={{ width: 560, height: 560, top: '10%', left: '-12%', opacity: 0.18 }}
-      />
-
+    <SectionWrapper id="work" wrapperClassName="overflow-hidden" style={{ background: '#F5F0E8' }}>
       <div className="relative z-10 flex flex-col gap-16">
-        <SectionHeading
-          title={workflowHeading.title}
-          subtitle={workflowHeading.subtitle}
-        />
+
+        {/* Heading */}
+        <motion.div
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewport}
+          className="flex flex-col items-center gap-4 text-center"
+        >
+          <motion.h2
+            variants={fadeUp}
+            style={{ fontFamily: 'var(--font-heading)', fontSize: 'var(--text-h2)', fontWeight: 600, color: '#1A1A1A', letterSpacing: '-0.02em' }}
+          >
+            {workflowHeading.title}
+          </motion.h2>
+          {workflowHeading.subtitle && (
+            <motion.p
+              variants={fadeUp}
+              style={{ fontFamily: 'var(--font-body)', fontSize: '1.0625rem', color: '#6B5A45', lineHeight: 1.75, maxWidth: '56ch' }}
+            >
+              {workflowHeading.subtitle}
+            </motion.p>
+          )}
+        </motion.div>
 
         {/* Step flow */}
         <motion.div
@@ -35,36 +46,31 @@ export default function Workflow() {
               {i < workflowSteps.length - 1 && (
                 <div
                   className="absolute top-5 left-[calc(50%+2.5rem)] hidden h-px lg:block"
-                  style={{
-                    width: 'calc(100% - 5rem)',
-                    background:
-                      'linear-gradient(90deg, rgba(26,109,232,0.5), rgba(26,109,232,0.1))',
-                  }}
+                  style={{ width: 'calc(100% - 5rem)', background: 'linear-gradient(90deg, #C8BFB2, #EDE8DF)' }}
                 />
               )}
 
               <div
                 className="flex flex-col gap-3 rounded-2xl p-5"
-                style={{
-                  background: isLight ? 'rgba(26,109,232,0.07)' : 'rgba(26,109,232,0.12)',
-                  border: `1px solid ${isLight ? 'rgba(26,109,232,0.15)' : 'rgba(26,109,232,0.22)'}`,
-                }}
+                style={{ background: '#EDE8DF', border: '1px solid #D8D0C4' }}
               >
                 <span
                   className="flex h-10 w-10 items-center justify-center rounded-xl text-sm font-bold"
                   style={{
-                    background: 'rgba(26,109,232,0.12)',
-                    border: '1px solid rgba(74,144,240,0.25)',
-                    color: 'var(--color-primary-accent)',
+                    background: '#3D2B1F',
+                    color: '#F5F0E8',
                     fontFamily: 'var(--font-heading)',
                   }}
                 >
                   {step}
                 </span>
-                <h3 className="text-base font-semibold" style={{ color: 'var(--color-text)' }}>
+                <h3
+                  className="text-base font-semibold"
+                  style={{ fontFamily: 'var(--font-heading)', color: '#1A1A1A' }}
+                >
                   {title}
                 </h3>
-                <p className="text-sm" style={{ color: 'var(--color-muted)', lineHeight: 1.6 }}>
+                <p className="text-sm" style={{ fontFamily: 'var(--font-body)', color: '#6B5A45', lineHeight: 1.6 }}>
                   {description}
                 </p>
               </div>
