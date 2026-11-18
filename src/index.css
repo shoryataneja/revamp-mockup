@@ -5,22 +5,22 @@
 ───────────────────────────────────────────── */
 @theme {
   /* Colors */
-  --color-bg-primary:    #0B0B0F;
-  --color-bg-secondary:  #14141A;
-  --color-bg-elevated:   #1A1A24;
+  --color-bg-primary:    #000000;
+  --color-bg-secondary:  #1F150C;
+  --color-bg-elevated:   #412D15;
 
-  --color-primary:        #1A6DE8;
-  --color-primary-accent: #4A90F0;
-  --color-primary-deep:   #1457BE;
-  --color-primary-dim:    #1A6DE826;
-  --color-primary-glow:   #4A90F040;
-  --color-on-primary:     #FFFFFF;
+  --color-primary:        #412D15;
+  --color-primary-accent: #E1DCC9;
+  --color-primary-deep:   #1F150C;
+  --color-primary-dim:    #412D1526;
+  --color-primary-glow:   #E1DCC940;
+  --color-on-primary:     #E1DCC9;
 
-  --color-text:          #F8FAFC;
-  --color-muted:         #94A3B8;
-  --color-subtle:        #475569;
-  --color-border:        #1E1E2E;
-  --color-border-bright: #2D2D42;
+  --color-text:          #E1DCC9;
+  --color-muted:         #C4BDA8;
+  --color-subtle:        #8A7D68;
+  --color-border:        #2A1E10;
+  --color-border-bright: #412D15;
 
   /* Typography */
   --font-heading: 'Space Grotesk', system-ui, sans-serif;
