@@ -64,7 +64,7 @@ export default function Navbar() {
 
         <nav className="relative flex items-center justify-between px-8 sm:px-12 lg:px-16 py-5">
           {/* Logo */}
-          <a href="#hero" onClick={closeMenu} className="relative z-10 flex items-center gap-2.5">
+          <a href="#hero" onClick={closeMenu} className="relative z-10 flex items-center gap-2.5 shrink-0">
             <img
               src={LOGO_ON_LIGHT}
               alt="Popular Digital AI"
@@ -95,12 +95,12 @@ export default function Navbar() {
           </a>
 
           {/* Desktop nav links — centred */}
-          <ul className="hidden md:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
+          <ul className="hidden md:flex items-center gap-4 lg:gap-6 mx-auto">
             {navLinks.map(({ label, href }) => (
               <li key={href}>
                 <a
                   href={href}
-                  className="relative text-sm font-medium group"
+                  className="relative text-sm font-medium group whitespace-nowrap"
                   style={{ color: 'rgba(26,26,26,0.5)', transition: 'color 200ms', fontFamily: 'var(--font-body)' }}
                   onMouseEnter={e => { e.currentTarget.style.color = '#1A1A1A' }}
                   onMouseLeave={e => { e.currentTarget.style.color = 'rgba(26,26,26,0.5)' }}
@@ -116,10 +116,10 @@ export default function Navbar() {
           </ul>
 
           {/* Desktop CTA */}
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden md:flex items-center shrink-0">
             <a
               href="#contact"
-              className="text-sm font-semibold rounded-lg px-5 py-2.5 transition-all duration-200"
+              className="text-sm font-semibold rounded-lg px-4 py-2 transition-all duration-200 whitespace-nowrap"
               style={{
                 background: '#1A1A1A',
                 color: '#F5F0E8',

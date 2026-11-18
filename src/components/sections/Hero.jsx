@@ -21,11 +21,11 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative flex min-h-screen w-full overflow-hidden"
+      className="relative flex flex-nowrap min-h-screen w-full overflow-hidden"
       style={{ background: '#F5F0E8' }}
     >
       {/* ── Left panel — copy ── */}
-      <div className="relative z-10 flex flex-col justify-center w-full lg:w-1/2 px-8 sm:px-12 lg:px-16 xl:px-20 pt-28 pb-40 lg:pt-0 lg:pb-0">
+      <div className="relative z-10 flex flex-col justify-center w-full lg:w-1/2 min-w-0 px-8 sm:px-12 lg:px-16 xl:px-20 pt-28 pb-40 lg:pt-0 lg:pb-0">
         <motion.div
           variants={container}
           initial="hidden"
@@ -121,7 +121,7 @@ export default function Hero() {
       </div>
 
       {/* ── Right panel — split Products / Services ── */}
-      <div className="hidden lg:flex flex-col w-1/2 min-h-screen">
+      <div className="hidden lg:flex flex-col w-1/2 shrink-0 min-h-screen">
 
         {/* Products panel — top half */}
         <motion.a
@@ -139,12 +139,12 @@ export default function Hero() {
           />
 
           {/* Hanging sign — upper centre of panel */}
-          <div className="flex flex-1 items-center justify-center pt-28 pb-4">
+          <div className="absolute inset-x-0 top-0 flex items-start justify-end pr-12 pt-16 pointer-events-none">
             <HangingSign />
           </div>
 
-          {/* Text — pinned to bottom */}
-          <div className="relative z-10 p-10">
+          {/* Text — vertically centred */}
+          <div className="relative z-10 p-10 flex flex-col justify-center flex-1">
             <h2
               style={{
                 fontFamily: 'var(--font-heading)',
@@ -184,7 +184,7 @@ export default function Hero() {
             style={{ background: 'rgba(0,0,0,0.2)' }}
           />
 
-          <div className="relative z-10 p-10">
+          <div className="relative z-10 p-10 flex flex-col justify-center flex-1">
             <h2
               style={{
                 fontFamily: 'var(--font-heading)',
