@@ -1,32 +1,61 @@
-import SectionWrapper from '@ui/SectionWrapper'
-import SectionHeading from '@ui/SectionHeading'
+import { motion } from 'framer-motion'
 import ProductCarousel from './products/ProductCarousel'
 import { products, productsHeading } from '@data/products'
 
+const EASE = [0.16, 1, 0.3, 1]
+
 export default function Products({ onOpenPrizm360 }) {
   return (
-    <SectionWrapper id="products" wrapperClassName="overflow-hidden">
-      {/* Ambient orbs */}
-      <div
-        className="glow-orb glow-orb-brand pointer-events-none"
-        style={{ width: 500, height: 500, top: '-10%', right: '-8%', opacity: 0.2 }}
-      />
-      <div
-        className="glow-orb glow-orb-accent pointer-events-none"
-        style={{ width: 400, height: 400, bottom: '5%', left: '-6%', opacity: 0.15 }}
-      />
+    <section
+      id="products"
+      className="relative w-full"
+      style={{ background: '#F5F0E8', paddingBlock: 'clamp(5rem, 10vw, 8rem)' }}
+    >
+      <div className="container-site flex flex-col gap-14">
 
-      <div className="relative z-10 flex flex-col gap-16">
         {/* Heading */}
-        <SectionHeading
-          eyebrow={productsHeading.eyebrow}
-          title={productsHeading.title}
-          subtitle={productsHeading.subtitle}
-        />
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.65, ease: EASE }}
+          className="flex flex-col gap-3 max-w-2xl"
+        >
+          <span style={{
+            fontFamily: 'var(--font-body)',
+            fontSize: '0.7rem',
+            fontWeight: 600,
+            letterSpacing: '0.14em',
+            textTransform: 'uppercase',
+            color: '#8A7D6E',
+          }}>
+            Our Products
+          </span>
+          <h2 style={{
+            fontFamily: 'var(--font-heading)',
+            fontSize: 'clamp(2rem, 4vw, 3rem)',
+            fontWeight: 600,
+            color: '#1A1A1A',
+            letterSpacing: '-0.02em',
+            lineHeight: 1.1,
+          }}>
+            {productsHeading.title}
+          </h2>
+          <p style={{
+            fontFamily: 'var(--font-body)',
+            fontSize: '1rem',
+            color: '#6B5A45',
+            lineHeight: 1.7,
+            maxWidth: 520,
+          }}>
+            {productsHeading.subtitle}
+          </p>
+        </motion.div>
 
-        {/* Carousel */}
+        {/* Grid */}
         <ProductCarousel products={products} onOpenPrizm360={onOpenPrizm360} />
+
       </div>
-    </SectionWrapper>
+    </section>
   )
 }

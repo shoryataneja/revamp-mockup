@@ -1,275 +1,101 @@
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
-import { useRef } from 'react'
-import { useTheme } from '@hooks/useTheme'
+import { motion } from 'framer-motion'
+import { ArrowRight } from 'lucide-react'
+import { useState } from 'react'
 
 const EASE = [0.16, 1, 0.3, 1]
 
-/* ── Inline SVG logo mark ───────────────────────────────────────── */
-function ProductLogo({ logoPath, accent, accentRgb }) {
-  return (
-    <div
-      className="relative flex h-12 w-12 shrink-0 items-center justify-center rounded-xl"
-      style={{
-        background: `rgba(${accentRgb}, 0.1)`,
-        border: `1px solid rgba(${accentRgb}, 0.25)`,
-        boxShadow: `0 0 16px rgba(${accentRgb}, 0.15)`,
-      }}
-    >
-      <svg
-        width="22"
-        height="22"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke={accent}
-        strokeWidth="1.75"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        aria-hidden="true"
-      >
-        {logoPath.split(' M').map((segment, i) => (
-          <path key={i} d={i === 0 ? segment : `M${segment}`} />
-        ))}
-      </svg>
-    </div>
-  )
-}
-
-/* ── Tag pill chip ──────────────────────────────────────────────── */
-function TagPill({ label, accent, accentRgb }) {
-  return (
-    <span
-      className="inline-flex items-center rounded-full px-3 py-1 text-xs font-medium"
-      style={{
-        background: `rgba(${accentRgb}, 0.1)`,
-        border: `1px solid rgba(${accentRgb}, 0.2)`,
-        color: accent,
-      }}
-    >
-      {label}
-    </span>
-  )
-}
-
-/* ── Card ───────────────────────────────────────────────────────── */
-/**
- * Reusable product card.
- * @param {object} product - product data object from products.js
- * @param {number} index   - used for stagger delay
- */
-const DETAIL_PAGES = ['prizm360', 'agentic-ai']
-
 export default function ProductCard({ product, index, onOpenPrizm360 }) {
-  const { id, name, tagline, description, tags, accent, accentRgb, logoPath, href, isCTA } = product
-  const { theme } = useTheme()
-  const isLight = theme === 'light'
+  const { id, name, tagline, description, tags, isCTA } = product
+  const [hovered, setHovered] = useState(false)
+  const DETAIL_PAGES = ['prizm360', 'agentic-ai']
 
-  /* Subtle 3-D tilt on mouse move */
-  const cardRef = useRef(null)
-  const mouseX  = useMotionValue(0)
-  const mouseY  = useMotionValue(0)
-  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [4, -4]), { stiffness: 300, damping: 30 })
-  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-4, 4]), { stiffness: 300, damping: 30 })
-
-  function handleMouseMove(e) {
-    const rect = cardRef.current.getBoundingClientRect()
-    mouseX.set((e.clientX - rect.left) / rect.width - 0.5)
-    mouseY.set((e.clientY - rect.top) / rect.height - 0.5)
-  }
-
-  function handleMouseLeave() {
-    mouseX.set(0)
-    mouseY.set(0)
-  }
-
-  if (isCTA) {
-    return (
-      <motion.div
-        initial={{ opacity: 0, y: 36 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-60px' }}
-        transition={{ duration: 0.65, ease: EASE, delay: index * 0.08 }}
-        style={{ height: '100%' }}
-      >
-        <a
-          href={href}
-          className="group relative flex h-full flex-col items-center justify-center gap-6 rounded-2xl p-8 text-center cursor-pointer"
-          style={{
-            border: `2px dashed rgba(${accentRgb}, 0.35)`,
-            background: `rgba(${accentRgb}, 0.03)`,
-            transition: 'border-color 300ms, background 300ms',
-          }}
-          onMouseEnter={e => {
-            e.currentTarget.style.borderColor = `rgba(${accentRgb}, 0.7)`
-            e.currentTarget.style.background = `rgba(${accentRgb}, 0.07)`
-          }}
-          onMouseLeave={e => {
-            e.currentTarget.style.borderColor = `rgba(${accentRgb}, 0.35)`
-            e.currentTarget.style.background = `rgba(${accentRgb}, 0.03)`
-          }}
-        >
-          {/* Glow on hover */}
-          <div
-            className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 pointer-events-none"
-            style={{
-              background: `radial-gradient(ellipse at 50% 50%, rgba(${accentRgb}, 0.08) 0%, transparent 70%)`,
-              transition: 'opacity 400ms',
-            }}
-          />
-          <div
-            className="relative flex h-14 w-14 items-center justify-center rounded-2xl"
-            style={{
-              background: `rgba(${accentRgb}, 0.12)`,
-              border: `1px solid rgba(${accentRgb}, 0.3)`,
-            }}
-          >
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke={accent} strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-              <line x1="12" y1="5" x2="12" y2="19" />
-              <line x1="5" y1="12" x2="19" y2="12" />
-            </svg>
-          </div>
-          <div className="flex flex-col gap-2">
-            <h3
-              className="text-xl font-bold tracking-tight"
-              style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-text)' }}
-            >
-              {name}
-            </h3>
-            <p className="text-sm leading-relaxed" style={{ color: 'var(--color-muted)' }}>
-              {description}
-            </p>
-          </div>
-          <span
-            className="inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-sm font-semibold"
-            style={{
-              background: `rgba(${accentRgb}, 0.12)`,
-              border: `1px solid rgba(${accentRgb}, 0.3)`,
-              color: accent,
-            }}
-          >
-            Let's Talk
-          </span>
-        </a>
-      </motion.div>
-    )
+  function handleClick() {
+    if (DETAIL_PAGES.includes(id)) onOpenPrizm360?.()
+    else window.location.hash = '#contact'
   }
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 36 }}
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-60px' }}
-      transition={{ duration: 0.65, ease: EASE, delay: index * 0.08 }}
-      style={{ perspective: 1000, height: '100%' }}
+      viewport={{ once: true, margin: '-40px' }}
+      transition={{ duration: 0.5, ease: EASE, delay: index * 0.05 }}
+      whileHover={{ y: -4 }}
+      onHoverStart={() => setHovered(true)}
+      onHoverEnd={() => setHovered(false)}
+      className="flex flex-col gap-4 p-8 cursor-pointer h-full relative"
+      onClick={handleClick}
+      style={{
+        background: hovered ? '#EDE8DF' : 'transparent',
+        transition: 'background 300ms ease',
+      }}
     >
-      <motion.article
-        ref={cardRef}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-        onClick={DETAIL_PAGES.includes(id) ? onOpenPrizm360 : undefined}
-        style={{ rotateX, rotateY, transformStyle: 'preserve-3d', height: '100%' }}
-        whileHover={{ y: -6 }}
-        transition={{ duration: 0.35, ease: EASE }}
-        className={`group relative flex h-full flex-col rounded-2xl p-6 ${DETAIL_PAGES.includes(id) ? 'cursor-pointer' : 'cursor-default'}`}
-        aria-label={name}
-      >
-        {/* Glass base */}
-        <div
-          className="absolute inset-0 rounded-2xl"
-          style={{
-            background: isLight ? '#FFFFFF' : 'rgba(18, 18, 26, 0.6)',
-            border: `1px solid ${isLight ? '#E2E8F0' : 'rgba(45, 45, 66, 0.7)'}`,
-            boxShadow: isLight ? '0 1px 3px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.06)' : 'none',
-          }}
-        />
-
-        {/* Hover: accent border */}
-        <div
-          className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 pointer-events-none"
-          style={{ border: `1px solid rgba(${accentRgb}, 0.4)`, transition: 'opacity 350ms' }}
-        />
-
-        {/* Hover: top glow sweep */}
-        <div
-          className="absolute inset-x-0 top-0 h-px rounded-t-2xl opacity-0 group-hover:opacity-100 pointer-events-none"
-          style={{
-            background: `linear-gradient(90deg, transparent, rgba(${accentRgb}, 0.7), transparent)`,
-            transition: 'opacity 350ms',
-          }}
-        />
-
-        {/* Hover: corner radial glow */}
-        <div
-          className="absolute -top-10 -right-10 h-32 w-32 rounded-full opacity-0 group-hover:opacity-100 pointer-events-none"
-          style={{
-            background: `radial-gradient(circle, rgba(${accentRgb}, 0.18) 0%, transparent 70%)`,
-            filter: 'blur(16px)',
-            transition: 'opacity 400ms',
-          }}
-        />
-
-        {/* Content */}
-        <div className="relative z-10 flex h-full flex-col gap-5">
-          {/* Logo */}
-          <ProductLogo logoPath={logoPath} accent={accent} accentRgb={accentRgb} />
-
-          {/* Name */}
-          <div className="flex flex-col gap-1">
-            <h3
-              className="text-2xl font-bold leading-tight tracking-tight"
-              style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-text)' }}
-            >
-              {name}
-            </h3>
-            <span className="text-xs font-medium" style={{ color: `rgba(${accentRgb}, 0.7)` }}>
-              {tagline}
-            </span>
-          </div>
-
-          {/* Description */}
-          <p className="text-sm leading-relaxed" style={{ color: 'var(--color-muted)' }}>
-            {description}
+      {/* Name + tagline */}
+      <div className="flex flex-col gap-1">
+        <h3 style={{
+          fontFamily: 'var(--font-heading)',
+          fontSize: '1.2rem',
+          fontWeight: 600,
+          color: '#1A1A1A',
+          lineHeight: 1.2,
+        }}>
+          {name}
+        </h3>
+        {tagline && (
+          <p style={{ fontSize: '0.75rem', color: '#8A7D6E', fontFamily: 'var(--font-body)' }}>
+            {tagline}
           </p>
+        )}
+      </div>
 
-          {/* Tag pills */}
-          {tags?.length > 0 && (
-            <div className="flex flex-wrap gap-2">
-              {tags.map(tag => (
-                <TagPill key={tag} label={tag} accent={accent} accentRgb={accentRgb} />
-              ))}
-            </div>
-          )}
+      {/* Description */}
+      <p style={{
+        fontSize: '0.875rem',
+        color: '#6B5A45',
+        lineHeight: 1.7,
+        fontFamily: 'var(--font-body)',
+        flexGrow: 1,
+      }}>
+        {description}
+      </p>
 
-          {/* Spacer pushes bottom area */}
-          <div className="flex-1" />
-
-          {/* Divider */}
-          <div
-            className="h-px w-full"
-            style={{ background: `linear-gradient(90deg, rgba(${accentRgb}, 0.3) 0%, transparent 80%)` }}
-          />
-
-          {/* To Know More */}
-          <button
-            onClick={e => {
-              e.stopPropagation()
-              if (DETAIL_PAGES.includes(id)) {
-                onOpenPrizm360()
-              } else {
-                window.location.hash = '#contact'
-              }
-            }}
-            className="flex items-center gap-1.5 text-sm font-semibold transition-colors duration-200"
-            style={{ color: accent, background: 'none', border: 'none', padding: 0, cursor: 'pointer' }}
-            onMouseEnter={e => e.currentTarget.style.opacity = '0.75'}
-            onMouseLeave={e => e.currentTarget.style.opacity = '1'}
-          >
-            To Know More
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
-          </button>
+      {/* Tags */}
+      {tags?.length > 0 && (
+        <div className="flex flex-wrap gap-2">
+          {tags.map(tag => (
+            <span
+              key={tag}
+              style={{
+                fontSize: '0.7rem',
+                fontWeight: 500,
+                color: '#6B5A45',
+                background: hovered ? 'rgba(61,43,31,0.1)' : 'rgba(61,43,31,0.06)',
+                border: '1px solid #D8D0C4',
+                borderRadius: 999,
+                padding: '3px 10px',
+                fontFamily: 'var(--font-body)',
+                transition: 'background 300ms ease',
+              }}
+            >
+              {tag}
+            </span>
+          ))}
         </div>
-      </motion.article>
+      )}
+
+      {/* CTA link */}
+      <motion.span
+        animate={{ gap: hovered ? '10px' : '6px' }}
+        className="inline-flex items-center text-sm font-medium"
+        style={{
+          color: '#3D2B1F',
+          textDecoration: 'underline',
+          textUnderlineOffset: 4,
+          fontFamily: 'var(--font-body)',
+        }}
+      >
+        {isCTA ? 'Get in touch' : 'Learn more'} <ArrowRight size={13} />
+      </motion.span>
     </motion.div>
   )
 }
