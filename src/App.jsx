@@ -7,7 +7,6 @@ import Careers from '@sections/Careers'
 import TrustedBy from '@sections/TrustedBy'
 import Contact from '@sections/Contact'
 import JobDetailPage from '@sections/careers/JobDetailPage'
-import Prizm360Page from '@sections/Prizm360Page'
 import ProductsPage from '@sections/ProductsPage'
 import { useLenis } from '@hooks/useLenis'
 import { usePageViews } from '@hooks/usePageViews'
@@ -33,14 +32,6 @@ export default function App() {
     return (
       <AnimatePresence mode="wait">
         <ProductsPage key="products" />
-      </AnimatePresence>
-    )
-  }
-
-  if (hash === '#/prizm360') {
-    return (
-      <AnimatePresence mode="wait">
-        <Prizm360Page />
       </AnimatePresence>
     )
   }
