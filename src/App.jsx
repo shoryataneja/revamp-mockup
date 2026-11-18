@@ -8,6 +8,7 @@ import TrustedBy from '@sections/TrustedBy'
 import Contact from '@sections/Contact'
 import JobDetailPage from '@sections/careers/JobDetailPage'
 import ProductsPage from '@sections/ProductsPage'
+import ServicesPage from '@sections/ServicesPage'
 import { useLenis } from '@hooks/useLenis'
 import { usePageViews } from '@hooks/usePageViews'
 import { AnimatePresence } from 'framer-motion'
@@ -27,6 +28,14 @@ export default function App() {
   usePageViews()
   const hash = useHashRoute()
   const [activeJob, setActiveJob] = useState(null)
+
+  if (hash === '#/services') {
+    return (
+      <AnimatePresence mode="wait">
+        <ServicesPage key="services" />
+      </AnimatePresence>
+    )
+  }
 
   if (hash === '#/products') {
     return (
