@@ -1,6 +1,8 @@
 import { useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { ArrowLeft, ArrowRight, Timer, Users, Zap, Repeat, PhoneCall, BarChart2 } from 'lucide-react'
+import { ArrowRight, Timer, Users, Zap, Repeat, PhoneCall, BarChart2 } from 'lucide-react'
+import RootLayout from '@layout/RootLayout'
+import { LOGO_ON_DARK } from '@lib/brandAssets'
 import VideoPlaceholder from './hero/VideoPlaceholder'
 import { workflowHeading, workflowSteps } from '@data/workflow'
 import { demoHeading, benchmark } from '@data/demo'
@@ -106,8 +108,7 @@ function ConstellationVisual() {
         className="absolute flex flex-col items-center justify-center rounded-full"
         style={{ width: 96, height: 96, left: HUB_X - 48, top: HUB_Y - 48, background: 'radial-gradient(circle at 38% 35%, #3D2B1F 0%, #1F150C 60%, #0D0804 100%)', boxShadow: '0 0 0 10px rgba(31,21,12,0.07), 0 0 0 22px rgba(31,21,12,0.04), 0 8px 32px rgba(0,0,0,0.3)', zIndex: 10 }}
       >
-        <span style={{ fontFamily: 'var(--font-heading)', fontSize: '1.15rem', fontWeight: 700, color: '#E1DCC9', letterSpacing: '0.04em' }}>PD</span>
-        <span style={{ fontFamily: 'var(--font-body)', fontSize: '0.48rem', color: '#8A7D6E', letterSpacing: '0.14em', textTransform: 'uppercase', marginTop: 2 }}>POPULAR DIGITAL</span>
+        <img src={LOGO_ON_DARK} alt="Popular Digital AI" style={{ width: 56, height: 'auto' }} />
       </motion.div>
 
       <motion.div
@@ -144,24 +145,14 @@ export default function ProductsPage() {
   useEffect(() => { window.scrollTo({ top: 0, behavior: 'instant' }) }, [])
 
   return (
+    <RootLayout>
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-      transition={{ duration: 0.3, ease: EASE }} className="flex min-h-screen flex-col"
-      style={{ background: '#F5F0E8' }}
+      transition={{ duration: 0.3, ease: EASE }}
     >
-      {/* Back bar */}
-      <div className="sticky top-0 z-50 flex items-center px-6 py-4"
-        style={{ background: 'rgba(245,240,232,0.92)', backdropFilter: 'blur(12px)', borderBottom: '1px solid #D8D0C4' }}
-      >
-        <a href="#hero" className="inline-flex items-center gap-2 text-sm font-medium" style={{ color: '#3D2B1F', fontFamily: 'var(--font-body)' }}>
-          <ArrowLeft size={16} /> Back to Home
-        </a>
-        <span className="ml-auto text-sm font-semibold" style={{ color: '#1A1A1A', fontFamily: 'var(--font-heading)' }}>Our Products</span>
-      </div>
-
-      <main className="flex-1">
+      <main>
 
         {/* ── Hero split ── */}
-        <section className="w-full overflow-hidden" style={{ paddingBlock: 'clamp(4rem, 8vw, 7rem)', paddingInline: 'clamp(1.5rem, 5vw, 5rem)' }}>
+        <section className="w-full overflow-hidden" style={{ background: '#F5F0E8', paddingBlock: 'clamp(4rem, 8vw, 7rem)', paddingInline: 'clamp(1.5rem, 5vw, 5rem)' }}>
           <div className="mx-auto flex max-w-7xl flex-col items-center gap-12 lg:flex-row lg:items-center">
             <motion.div initial={{ opacity: 0, x: -32 }} animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.75, ease: EASE }} className="flex flex-col gap-7 lg:w-[44%] shrink-0"
@@ -440,5 +431,6 @@ export default function ProductsPage() {
         </div>
       </main>
     </motion.div>
+    </RootLayout>
   )
 }
