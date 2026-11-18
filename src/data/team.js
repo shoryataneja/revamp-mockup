@@ -26,9 +26,10 @@ export const cultureItems = [
   { id: 'c3',  src: cdn('/Pictures/culture-photo-1.webp'),  aspect: 'wide',   caption: 'Company Culture'       },
   { id: 'c4',  src: cdn('/Pictures/culture-photo-2.webp'),  aspect: 'tall',   caption: 'Team Moments'          },
   { id: 'c5',  src: cdn('/Pictures/culture-photo-3.webp'),  aspect: 'square', caption: 'Collaboration Session' },
-  { id: 'c8',  src: cdn('/Pictures/culture-photo-8.webp'),  aspect: 'wide',   caption: 'Behind the Scenes'     },
-  { id: 'c9',  src: cdn('/Pictures/culture-photo-9.webp'),  aspect: 'square', caption: 'Team Hangout'          },
-  { id: 'c10', src: cdn('/Pictures/culture-photo-10.webp'), aspect: 'wide',   caption: 'Building Together'     },
+  { id: 'c6',  src: cdn('/Pictures/culture-photo-8.webp'),  aspect: 'wide',   caption: 'Behind the Scenes'     },
+  { id: 'c7',  src: cdn('/Pictures/culture-photo-9.webp'),  aspect: 'square', caption: 'Team Hangout'          },
+  { id: 'c8',  src: cdn('/Pictures/culture-photo-10.webp'), aspect: 'wide',   caption: 'Building Together'     },
+  { id: 'c9',  src: cdn('/Pictures/culture-photo-11.webp'), aspect: 'square', caption: 'Team Spirit'           },
 ]
 
 /** Workspace tab — office space photos only */

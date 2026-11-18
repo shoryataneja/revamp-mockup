@@ -111,6 +111,7 @@ export default function Team() {
                 index={i}
                 onOpen={activeTab === 'culture' ? setLightboxIndex : undefined}
                 buttonRef={el => (triggerRefs.current[i] = el)}
+                placeholder={activeTab === 'culture'}
               />
             ))}
           </motion.div>
