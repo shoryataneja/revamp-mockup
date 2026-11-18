@@ -1,12 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import RootLayout from '@layout/RootLayout'
 import Hero from '@sections/Hero'
 import Products from '@sections/Products'
-import Team from '@sections/Team'
-import Careers from '@sections/Careers'
-import TrustedBy from '@sections/TrustedBy'
 import Contact from '@sections/Contact'
-import JobDetailPage from '@sections/careers/JobDetailPage'
+import AboutPage from '@sections/AboutPage'
 import ProductsPage from '@sections/ProductsPage'
 import ServicesPage from '@sections/ServicesPage'
 import { useLenis } from '@hooks/useLenis'
@@ -27,7 +24,14 @@ export default function App() {
   useLenis()
   usePageViews()
   const hash = useHashRoute()
-  const [activeJob, setActiveJob] = useState(null)
+
+  if (hash === '#/about') {
+    return (
+      <AnimatePresence mode="wait">
+        <AboutPage key="about" />
+      </AnimatePresence>
+    )
+  }
 
   if (hash === '#/services') {
     return (
@@ -45,21 +49,10 @@ export default function App() {
     )
   }
 
-  if (activeJob) {
-    return (
-      <AnimatePresence mode="wait">
-        <JobDetailPage key={activeJob.id} job={activeJob} onClose={() => setActiveJob(null)} />
-      </AnimatePresence>
-    )
-  }
-
   return (
     <RootLayout>
       <Hero />
       <Products onOpenPrizm360={() => { window.location.hash = '#/prizm360' }} />
-      <Team />
-      <Careers onOpenJob={setActiveJob} />
-      <TrustedBy />
       <Contact />
     </RootLayout>
   )
