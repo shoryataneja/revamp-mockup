@@ -7,11 +7,8 @@ const EASE = [0.16, 1, 0.3, 1]
 export default function ProductCard({ product, index, onOpenPrizm360 }) {
   const { id, name, tagline, description, tags, isCTA } = product
   const [hovered, setHovered] = useState(false)
-  const DETAIL_PAGES = ['prizm360', 'agentic-ai']
-
   function handleClick() {
-    if (DETAIL_PAGES.includes(id)) onOpenPrizm360?.()
-    else window.location.hash = '#contact'
+    window.location.hash = '#/products'
   }
 
   return (

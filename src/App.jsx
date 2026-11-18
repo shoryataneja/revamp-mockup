@@ -8,6 +8,7 @@ import TrustedBy from '@sections/TrustedBy'
 import Contact from '@sections/Contact'
 import JobDetailPage from '@sections/careers/JobDetailPage'
 import Prizm360Page from '@sections/Prizm360Page'
+import ProductsPage from '@sections/ProductsPage'
 import { useLenis } from '@hooks/useLenis'
 import { usePageViews } from '@hooks/usePageViews'
 import { AnimatePresence } from 'framer-motion'
@@ -27,6 +28,14 @@ export default function App() {
   usePageViews()
   const hash = useHashRoute()
   const [activeJob, setActiveJob] = useState(null)
+
+  if (hash === '#/products') {
+    return (
+      <AnimatePresence mode="wait">
+        <ProductsPage key="products" />
+      </AnimatePresence>
+    )
+  }
 
   if (hash === '#/prizm360') {
     return (

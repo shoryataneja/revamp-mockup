@@ -125,7 +125,7 @@ export default function Hero() {
 
         {/* Products panel — top half */}
         <motion.a
-          href="#products"
+          href="#/products"
           initial={{ opacity: 0, x: 48 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.85, ease: EASE, delay: 0.3 }}
@@ -213,7 +213,7 @@ export default function Hero() {
       {/* ── Mobile — Products / Services bottom strip ── */}
       <div className="lg:hidden absolute bottom-0 inset-x-0 flex" style={{ height: 120 }}>
         <a
-          href="#products"
+          href="#/products"
           className="flex-1 flex flex-col justify-center px-6"
           style={{ background: '#1F150C', borderTop: '1px solid rgba(65,45,21,0.6)' }}
         >
